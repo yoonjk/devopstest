@@ -11,7 +11,7 @@ install:
 notifications:
   email:
     recipients:
-    - bsjun@kr.ibm.com
+    - jgyun@kr.ibm.com
     on_success: change
     on_failure: always
 deploy:
