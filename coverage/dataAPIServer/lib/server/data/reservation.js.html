@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for dataAPIServer/lib/server/data/reservation.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">dataAPIServer/lib/server/data</a> reservation.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">66.67% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>60/90</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">35.71% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>15/42</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">57.89% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>11/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">67.05% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>59/88</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+*  IBM Confidential
+*
+*  OCO Source Materials
+*
+*  5799-MA4
+*
+*  © Copyright IBM Corp. 2017
+*
+*  The source code for this program is not published or otherwise divested of its trade secrets,
+*  irrespective of what has been deposited with the U.S. Copyright Office.
+*/
+&nbsp;
+'use strict';
+&nbsp;
+const BluebirdPromise = require('bluebird');
+const Cloudant = require('cloudant');
+const logger = require('../util/logger');
+const cloudantCredential = require('../util/cred_cloudant').getCloudantCredentials('responses');
+const RESERVATION_DB_NAME = 'contactrequests';
+const venuesDao = require('./venues');
+const {getHourFromTime} = require('../util/time_converter');
+&nbsp;
+const cloudant = Cloudant(cloudantCredential);
+const _db = BluebirdPromise.promisifyAll(cloudant.use(RESERVATION_DB_NAME));
+&nbsp;
+const RESERVATION_LIMIT_PER_VENUE = 10;
+&nbsp;
+const getReservation = (id) =&gt; {
+  return _db.getAsync(id);
+};
+&nbsp;
+const getUserReservation = (user, venue) =&gt; {
+  const stringDate = new Date().toISOString().substr(0, 10);
+  let q = `user:${user}`;
+&nbsp;
+  if (venue) {
+    q += ` AND venue:"${venue}"`;
+  }
+&nbsp;
+  q += ` AND date:[${stringDate} TO Infinity]`;
+&nbsp;
+  logger.debug('query string : ' + q);
+&nbsp;
+  return _db.searchAsync('reservationSearch', 'searchByUser', {
+    q,
+    include_docs: true,
+  }).then(body =&gt; {
+    return body.rows.map(<span class="fstat-no" title="function not covered" >(r</span>ow) =&gt; {
+<span class="cstat-no" title="statement not covered" >      return {</span>
+        user: row.doc.client,
+        venue: row.doc.request.venue,
+        people: row.doc.request.count,
+        date: row.doc.request.date,
+        time: row.doc.request.time
+      };
+    });
+  }).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.debug(JSON.stringify(err));</span>
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  });
+};
+&nbsp;
+const getVenueReservation = (venue, date, time) =&gt; {
+  let q = `venue:"${venue}"`;
+&nbsp;
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (date) {
+<span class="cstat-no" title="statement not covered" >    q += ` AND date:"${date}"`;</span>
+  }
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (time &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >time.length === 5)</span> {
+    const hour = <span class="cstat-no" title="statement not covered" >parseInt(time.slice(0, 2));</span>
+<span class="cstat-no" title="statement not covered" >    q += ` AND time:[${hour - 2}:00 TO ${hour + 2}:00]`;</span>
+  }
+&nbsp;
+  logger.debug('query string : ' + q);
+&nbsp;
+  return _db.searchAsync('reservationSearch', 'searchByVenue', {
+    q,
+    include_docs: true,
+  }).then(body =&gt; {
+    return body.rows.map((row) =&gt; {
+      return {
+        user: row.doc.client,
+        venue: row.doc.request.venue,
+        people: row.doc.request.count,
+        date: row.doc.request.date,
+        time: row.doc.request.time
+      };
+    });
+  }).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.debug(JSON.stringify(err));</span>
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  });
+};
+&nbsp;
+const addReservation = doc =&gt; {
+  doc.timestamp = (new Date()).toISOString();
+  doc.updated = (new Date()).toISOString();
+  return _db.insertAsync(doc);
+};
+&nbsp;
+const updateReservation = <span class="fstat-no" title="function not covered" >do</span>c =&gt; {
+<span class="cstat-no" title="statement not covered" >  doc.updated = (new Date()).toISOString();</span>
+<span class="cstat-no" title="statement not covered" >  if (doc._rev) {</span>
+<span class="cstat-no" title="statement not covered" >    return _db.insertAsync(doc);</span>
+  } else {
+<span class="cstat-no" title="statement not covered" >    return _db.getAsync(doc._id)</span>
+    .then(<span class="fstat-no" title="function not covered" >re</span>turnedDoc =&gt;
+<span class="cstat-no" title="statement not covered" >      _db.insertAsync(</span>
+        Object.assign({}, doc, {_rev: returnedDoc._rev})
+      )
+    );
+  }
+};
+&nbsp;
+const removeReservation = <span class="fstat-no" title="function not covered" >(i</span>d, rev, callback) =&gt; {
+<span class="cstat-no" title="statement not covered" >  if (id &amp;&amp; rev) {</span>
+<span class="cstat-no" title="statement not covered" >    return getReservation(id).then(<span class="fstat-no" title="function not covered" >re</span>sult =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      if (result) {</span>
+<span class="cstat-no" title="statement not covered" >        result.status = 'cancelled';</span>
+<span class="cstat-no" title="statement not covered" >        return _db.insertAsync(doc);</span>
+      }
+    });
+  }
+};
+&nbsp;
+const getAvailableTime = (venue, date, time) =&gt; {
+  let startHour;
+  let endHour;
+  let inputHour;
+&nbsp;
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (time &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >time.length === 5)</span> {
+<span class="cstat-no" title="statement not covered" >    inputHour = parseInt(time.substr(0, 2));</span>
+  }
+&nbsp;
+  return venuesDao.findVenue({name: venue}).then(findedDocs =&gt; {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (findedDocs.docs[0] &amp;&amp; findedDocs.docs[0].opentime) {
+      const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const jdate = new Date(date);
+      const dayinfo = findedDocs.docs[0].opentime.find((ot) =&gt; ot.day === weekday[jdate.getDay()]);
+      logger.debug('dayinfo : ', dayinfo);
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (dayinfo) {
+        startHour = getHourFromTime(dayinfo.start);
+        endHour = getHourFromTime(dayinfo.end);
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!startHour) {
+<span class="cstat-no" title="statement not covered" >          if (inputHour &amp;&amp; inputHour &gt; 2) {</span>
+<span class="cstat-no" title="statement not covered" >            startHour = inputHour - 2;</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            startHour = 0;</span>
+          }
+        }
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!endHour) {
+<span class="cstat-no" title="statement not covered" >          if (inputHour) {</span>
+<span class="cstat-no" title="statement not covered" >            endHour = inputHour + 2;</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            endHour = 24;</span>
+          }
+        }
+&nbsp;
+        return _db.viewAsync('reservationAvailable', 'time', {
+          group: true,
+          inclusive_end: true,
+          startkey: [venue, date, (('0' + startHour).slice(-2))],
+          endkey: [venue, date, (('0' + endHour).slice(-2))],
+        });
+      }
+    }
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  }).then((result) =&gt; {
+    logger.debug('query result : ', result);
+    const times = [];
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (result !== null) {
+      for (let i = startHour; i &lt; endHour; i++) {
+        const targetHour = (('0' + i).slice(-2));
+        const getReservation = result.rows.find(<span class="fstat-no" title="function not covered" >ro</span>w =&gt; <span class="cstat-no" title="statement not covered" >row.key[2] === targetHour)</span>;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (getReservation) {
+<span class="cstat-no" title="statement not covered" >          console.log('getReservation : ' + getReservation.value);</span>
+<span class="cstat-no" title="statement not covered" >          if (getReservation.value &lt; RESERVATION_LIMIT_PER_VENUE) {</span>
+<span class="cstat-no" title="statement not covered" >            times.push(targetHour + ':00');</span>
+          }
+        } else {
+          times.push(targetHour + ':00');
+        }
+      }
+    }
+    return times;
+  });
+};
+&nbsp;
+module.exports = {
+  getReservation,
+  addReservation,
+  updateReservation,
+  getUserReservation,
+  getVenueReservation,
+  removeReservation,
+  getAvailableTime,
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jan 08 2018 16:41:40 GMT+0900 (KST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

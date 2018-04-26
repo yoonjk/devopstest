@@ -1,0 +1,7 @@
+{
+  "preset": "google",
+  "requireCamelCaseOrUpperCaseIdentifiers": false,
+  "maxErrors": null,
+  "maximumLineLength": null,
+  "excludeFiles": ["coverage/**", ".git/**", "node_modules/**", "test/**", "res/assets/test/**", "lib/server/kr-sdk/**"]
+}

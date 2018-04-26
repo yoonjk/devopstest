@@ -1,0 +1,12 @@
+applications:
+- path: .
+  memory: 256M
+  instances: 1
+  domain: mybluemix.net
+  name: devOps-handson
+  host: jgyun-devOps-handson
+  disk_quota: 384M
+  services:
+  - devops-cloudant
+  env:
+    APP_PREFIX: bsjun

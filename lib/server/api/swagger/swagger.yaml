@@ -1,0 +1,63 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: Expertise REST API
+basePath: /v1/api
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /test:
+    x-swagger-router-controller: test
+    get:
+      tags: [test]
+      summary: run test for get
+      description: I said run test for get!.
+      operationId: getDocument
+      parameters:
+      - name: id
+        in: query
+        type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Response"
+        "404":
+          description: Not found
+    post:
+      tags: [test]
+      summary: run test for post
+      description: urun test for post
+      operationId: inputDocument
+      parameters:
+        - name: input
+          in: body
+          description: response object.
+          required: true
+          schema:
+            $ref: '#/definitions/updateConfig'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Response"
+        "500":
+          description: failed
+          schema:
+            $ref: "#/definitions/Response"
+
+  /swagger:
+    x-swagger-pipe: swagger_raw
+
+# complex objects have schema definitions
+definitions:
+  Response:
+    properties:
+      result:
+        type: object
+  updateConfig:
+    type: object

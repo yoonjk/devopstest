@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for dataAPIServer/lib/server/data/faqDiscovery.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">dataAPIServer/lib/server/data</a> faqDiscovery.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">47.22% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>17/36</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">48.57% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>17/35</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+*  IBM Confidential
+*
+*  OCO Source Materials
+*
+*  5799-MA4
+*
+*  © Copyright IBM Corp. 2017
+*
+*  The source code for this program is not published or otherwise divested of its trade secrets,
+*  irrespective of what has been deposited with the U.S. Copyright Office.
+*/
+&nbsp;
+'use strict';
+&nbsp;
+const Cloudant = require('cloudant');
+const BluebirdPromise = require('bluebird');
+const uuidV1 = require('uuid/v1');
+&nbsp;
+const logger = require('../util/logger');
+const cloudantCredential = require('../util/cred_cloudant').getCloudantCredentials('responses');
+&nbsp;
+const FAQ_DB_NAME = 'faq_discovery';
+&nbsp;
+const cloudant = Cloudant(cloudantCredential);
+const _db = BluebirdPromise.promisifyAll(cloudant.use(FAQ_DB_NAME));
+&nbsp;
+const insertFaq = <span class="fstat-no" title="function not covered" >(d</span>oc) =&gt; { //insert new document into cloudant
+<span class="cstat-no" title="statement not covered" >  doc._id = 'faq_' + uuidV1();</span>
+<span class="cstat-no" title="statement not covered" >  return _db.insertAsync(doc);</span>
+};
+&nbsp;
+//register faq document into cloudant
+const addFaq = <span class="fstat-no" title="function not covered" >(p</span>arams) =&gt; {
+  let doc = <span class="cstat-no" title="statement not covered" >{</span>
+    question: params.question,
+    answer: params.answer,
+    document_id: params.document_id,
+    metadata: params.metadata,
+    stt_training: params.stt_training
+  };
+<span class="cstat-no" title="statement not covered" >  return insertFaq(doc);</span>
+};
+&nbsp;
+const findFaq = <span class="fstat-no" title="function not covered" >(s</span>elector) =&gt; { // find document in cloudant by using selector
+<span class="cstat-no" title="statement not covered" >  return _db.findAsync({selector});</span>
+};
+&nbsp;
+const getFaq = <span class="fstat-no" title="function not covered" >(i</span>d)  =&gt; { // find document in cloudant by using selector
+<span class="cstat-no" title="statement not covered" >  return _db.getAsync(id);</span>
+};
+&nbsp;
+const getFaqs = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >  return _db.viewAsync('view_faqs', 'faqs', {include_docs: true});</span>
+};
+&nbsp;
+const deleteFaq = <span class="fstat-no" title="function not covered" >(i</span>d) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return getFaq(id).then(<span class="fstat-no" title="function not covered" >(r</span>esult) =&gt; { // check if deleting faq is existing in cloudant</span>
+<span class="cstat-no" title="statement not covered" >    logger.debug('result from getting doc : ' + JSON.stringify(result));</span>
+    let docId = <span class="cstat-no" title="statement not covered" >result._id;</span>
+    let docRev = <span class="cstat-no" title="statement not covered" >result._rev;</span>
+    let delDoc = <span class="cstat-no" title="statement not covered" >result;</span>
+<span class="cstat-no" title="statement not covered" >    return _db.destroyAsync(docId, docRev).then(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >delDoc)</span>;</span>
+  }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.debug(err);</span>
+<span class="cstat-no" title="statement not covered" >    throw {result: 'there is no response'};</span>
+  });
+};
+&nbsp;
+const updateFaq = <span class="fstat-no" title="function not covered" >(o</span>rgDoc, params) =&gt; {
+  let doc = <span class="cstat-no" title="statement not covered" >{</span>
+    _id: orgDoc._id,
+    question: params.question,
+    answer: params.answer,
+    document_id: orgDoc.document_id,
+    metadata: params.metadata,
+    stt_training: params.stt_training
+  };
+<span class="cstat-no" title="statement not covered" >  return _db.insertAsync(doc);</span>
+};
+&nbsp;
+const bulkFaqs = <span class="fstat-no" title="function not covered" >(f</span>aqs) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return _db.bulkAsync(faqs, {});</span>
+};
+&nbsp;
+module.exports = {
+  addFaq,
+  findFaq,
+  getFaq,
+  deleteFaq,
+  getFaqs,
+  updateFaq,
+  bulkFaqs,
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jan 08 2018 16:41:40 GMT+0900 (KST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

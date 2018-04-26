@@ -1,0 +1,3080 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for dataAPIServer/lib/server/api/controllers/hotel.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../../index.html">All files</a> / <a href="index.html">dataAPIServer/lib/server/api/controllers</a> hotel.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">44.74% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>234/523</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">30.82% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>45/146</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">43.23% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>83/192</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">44.7% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>232/519</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+871
+872
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908
+909
+910
+911
+912
+913
+914
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928
+929
+930
+931
+932
+933
+934
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948
+949
+950
+951
+952
+953
+954
+955
+956
+957
+958
+959
+960
+961
+962
+963
+964
+965
+966
+967
+968
+969
+970
+971
+972
+973
+974
+975
+976
+977
+978
+979
+980
+981
+982
+983
+984
+985
+986
+987
+988
+989
+990
+991
+992
+993
+994
+995
+996
+997
+998
+999
+1000
+1001
+1002
+1003
+1004
+1005
+1006</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+*  IBM Confidential
+*
+*  OCO Source Materials
+*
+*  5799-MA4
+*
+*  © Copyright IBM Corp. 2017
+*
+*  The source code for this program is not published or otherwise divested of its trade secrets,
+*  irrespective of what has been deposited with the U.S. Copyright Office.
+*/
+&nbsp;
+'use strict';
+&nbsp;
+const BluebirdPromise = require('bluebird');
+&nbsp;
+const logger = require('../../util/logger');
+const venuesDao = require('../../data/venues');
+const venueTypeDao = require('../../data/venueType');
+const faqDao = require('../../data/faq');
+const faqDiscoveryDao = require('../../data/faqDiscovery');
+const responseDao = require('../../data/response');
+const {addIntent, addBulkIntents, addEntity, deleteIntent, bulkDeleteIntents, deleteEntity, updateIntent, getWorkspaceStatus, WCS_STATUS_AVAILABLE} = require('../../watson/conversation');
+const {addCorpusSTT, addDiscoveryCorpusSTT, deleteCorpusSTT, deleteDiscoveryCorpusSTT, updateCorpusSTT, addWordToSTT, deleteWordFromSTT} = require('../../watson/stt');
+const {checkDiscovery, addDiscoveryData, deleteDiscoveryData, updateDiscoveryData, queryDiscoveryData} = require('../../watson/discovery');
+&nbsp;
+const LANGUAGE = 'en-US';
+const HOTEL_CONVERSATION_NAME = 'responses';
+const HOTEL_VENUE_ENTITY = 'venue';
+const RESERVATION_CONVERSATION_NAME = 'reservation';
+const RESERVATION_VENUE_INTENT = 'reservation-multiflow-venue';
+const RESERVATION_VENUE_ENTITY = 'venue';
+const FAQ_INTENT = 'hotel-information-faq';
+const FAQ_ENTITY = 'keyword';
+const TYPE_ENTITY = 'venueType';
+&nbsp;
+// delete venue responses which related a specific venue
+const deleteVenueResponses = (venueNames) =&gt; {
+  let delDocs = {docs: []};
+  let deletedDoc;
+  let selector;
+&nbsp;
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (Array.isArray(venueNames)) {
+<span class="cstat-no" title="statement not covered" >    selector = {venue: {'$or': venueNames}};</span>
+  } else {
+    selector = {venue: venueNames};
+  }
+&nbsp;
+  return responseDao.findResponse(selector).then((result) =&gt; {
+    delDocs.docs = result.docs.map(doc =&gt; {
+      return {
+        _id: doc._id,
+        _rev: doc._rev,
+        _deleted: true
+      };
+    });
+&nbsp;
+    return responseDao.bulkResponses(delDocs);
+  }).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (err.error === 'not_found') {</span>
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    throw err;</span>
+  });
+};
+&nbsp;
+const setFaq = (params) =&gt; { // register faq
+  // Finding from keywords column using selector.
+  let selector = { // if question is same, or keywords are all same. it will fail
+    '$or': [
+      {'question': params.question},
+      {'keywords': params.keywords}
+    ]
+  };
+  return faqDao.findFaq(selector).then((result) =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (result.docs[0]) {
+<span class="cstat-no" title="statement not covered" >      logger.debug(result.docs[0]);</span>
+<span class="cstat-no" title="statement not covered" >      throw {result: 'duplicated keywords or question'}; </span>// there is faq that has same keywords
+    } else {
+      return addIntent(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_INTENT, params.question)
+      .then(() =&gt; addEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_ENTITY, params.keywords))
+      .then(() =&gt; faqDao.addFaq(params))
+      .then(() =&gt; {return {result: 'SUCCESS: Adding generic response has been succeeded'};})
+      .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >        logger.error('error', err);</span>
+<span class="cstat-no" title="statement not covered" >        deleteIntent(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_INTENT, params.question)</span>
+        .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >faqDao.checkFaqDeleteEntity(params.keywords))</span>
+        .then(<span class="fstat-no" title="function not covered" >(r</span>esult) =&gt; {
+<span class="cstat-no" title="statement not covered" >          logger.debug('check entity result: ', result);</span>
+<span class="cstat-no" title="statement not covered" >          return deleteEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_ENTITY, result);</span>
+        }).then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >          throw {result: 'updaing response failed'};</span>
+        });
+      });
+    }
+  });
+};
+&nbsp;
+const updateFaqWithoutSTT = (newParams, pParams, pKeywords) =&gt; { // TODO: should be implemented in UI in the future
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (newParams.question !== pParams.question &amp;&amp; arraysEqual(pKeywords, newParams.keywords)) {
+<span class="cstat-no" title="statement not covered" >    return updateIntent(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_INTENT, pParams.question, newParams.question)</span>
+    .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >faqDao.updateFaq(pParams, newParams))</span>;
+  } else <span class="missing-if-branch" title="if path not taken" >I</span>if (newParams.question === pParams.question &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!arraysEqual(pKeywords, newParams.keywords))</span> {
+<span class="cstat-no" title="statement not covered" >    return updateEntity(FAQ_ENTITY, pKeywords, newParams.keywords)</span>
+    .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >faqDao.updateFaq(pParams, newParams))</span>;
+  } else {
+    return updateEntity(FAQ_ENTITY, pKeywords, newParams.keywords)
+      .then(() =&gt; updateIntent(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_INTENT, pParams.question, newParams.question))
+      .then(() =&gt; faqDao.updateFaq(pParams, newParams));
+  }
+};
+&nbsp;
+const arraysEqual = (arr1, arr2) =&gt; {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (arr1.length !== arr2.length) {
+<span class="cstat-no" title="statement not covered" >    return false;</span>
+  }
+  for (var i = arr1.length; i--;) {
+    if (arr1[i] !== arr2[i]) {
+      return false;
+    }
+  }
+  return true;
+};
+const updateDiscovery = <span class="fstat-no" title="function not covered" >(p</span>revId, newParams) =&gt; {
+  let pParams;
+<span class="cstat-no" title="statement not covered" >  return faqDiscoveryDao.deleteFaq(prevId)</span>
+  .then(<span class="fstat-no" title="function not covered" >re</span>sult =&gt; { //reset corpus
+<span class="cstat-no" title="statement not covered" >    if (result) {</span>
+<span class="cstat-no" title="statement not covered" >      pParams = result;</span>
+<span class="cstat-no" title="statement not covered" >      return faqDiscoveryDao.updateFaq(pParams, newParams);</span>
+    }
+  })
+  .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+    const newDoc = <span class="cstat-no" title="statement not covered" >{</span>
+      question: newParams.question,
+      answer: newParams.answer
+    };
+<span class="cstat-no" title="statement not covered" >    return updateDiscoveryData(newDoc, pParams.document_id);</span>
+  })
+  .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >    pParams.question.sort();</span>
+<span class="cstat-no" title="statement not covered" >    newParams.question.sort();</span>
+<span class="cstat-no" title="statement not covered" >    if (arraysEqual(pParams.question, newParams.question)) {</span>
+<span class="cstat-no" title="statement not covered" >      throw {noerror: pParams};</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      return bulkDeleteIntents(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_INTENT, pParams.question);</span>
+    }
+  })
+  .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >addBulkIntents(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_INTENT, newParams.question))</span>
+  .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >pParams)</span>
+  .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (err.hasOwnProperty('noerror')) {</span>
+<span class="cstat-no" title="statement not covered" >      return err.noerror;</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >      throw {result: err};</span>
+    }
+  });
+};
+&nbsp;
+const updateFaq = (prevId, newParams) =&gt; {
+  return faqDao.getFaq(prevId).then(function(result) { //reset corpus
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (result) {
+      let pParams = result;
+      let pKeywords = pParams.keywords;
+      if (pParams.question === newParams.question &amp;&amp; arraysEqual(pKeywords, newParams.keywords)) {
+        return faqDao.updateFaq(pParams, newParams).then(() =&gt; pParams);
+      } else {
+        return updateFaqWithoutSTT(newParams, pParams, pKeywords).then(() =&gt; pParams);
+      }
+    } else {
+<span class="cstat-no" title="statement not covered" >      throw {result: 'data search failed : ' + prevId};</span>
+    }
+  }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >    throw {result: 'data search failed'};</span>
+  });
+};
+&nbsp;
+const bulkDeleteDiscoveryFaqs = <span class="fstat-no" title="function not covered" >(i</span>ds) =&gt; {
+  let deletedDoc;
+  let mergedIntents = <span class="cstat-no" title="statement not covered" >[];</span>
+  const selector = <span class="cstat-no" title="statement not covered" >{</span>
+    _id: {
+      $in: ids
+    }
+  };
+<span class="cstat-no" title="statement not covered" >  return faqDiscoveryDao.findFaq(selector).then(<span class="fstat-no" title="function not covered" >(r</span>esult) =&gt; { // check if deleting faq is existing in cloudant</span>
+<span class="cstat-no" title="statement not covered" >    deletedDoc = result;</span>
+    const delDocs = <span class="cstat-no" title="statement not covered" >{docs: []};</span>
+<span class="cstat-no" title="statement not covered" >    logger.debug('result from getting doc : ' + JSON.stringify(result));</span>
+<span class="cstat-no" title="statement not covered" >    for (let i = 0; i &lt; result.docs.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >      delDocs.docs.push(</span>
+        {
+          _id: result.docs[i]._id,
+          _rev: result.docs[i]._rev,
+          _deleted: true
+        }
+      );
+    }
+<span class="cstat-no" title="statement not covered" >    return delDocs;</span>
+  })
+  .then(<span class="fstat-no" title="function not covered" >(d</span>elDocs) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return faqDiscoveryDao.bulkFaqs(delDocs);</span>
+  })
+  .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+    let delDocsId = <span class="cstat-no" title="statement not covered" >[];</span>
+<span class="cstat-no" title="statement not covered" >    for (let i = 0; i &lt; deletedDoc.docs.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >      delDocsId.push(deletedDoc.docs[i].document_id);</span>
+<span class="cstat-no" title="statement not covered" >      mergedIntents = mergedIntents.concat(deletedDoc.docs[i].question);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    logger.debug('merged intent example', mergedIntents);</span>
+    const bulkDeleteDiscoveryDocPromises = <span class="cstat-no" title="statement not covered" >delDocsId.map(<span class="fstat-no" title="function not covered" >(i</span>d) =&gt; <span class="cstat-no" title="statement not covered" >deleteDiscoveryData(id))</span>;</span>
+<span class="cstat-no" title="statement not covered" >    return BluebirdPromise.all(bulkDeleteDiscoveryDocPromises);</span>
+  })
+  .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >    return bulkDeleteIntents(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_INTENT, mergedIntents);</span>
+  })
+  .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >    return deletedDoc;</span>
+  });
+};
+&nbsp;
+const bulkDeleteFaqs = <span class="fstat-no" title="function not covered" >(i</span>ds) =&gt; {
+  let deletedDoc;
+  let mergedIntents = <span class="cstat-no" title="statement not covered" >[];</span>
+  const selector = <span class="cstat-no" title="statement not covered" >{</span>
+    _id: {
+      $in: ids
+    }
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return faqDao.findFaq(selector).then(<span class="fstat-no" title="function not covered" >(r</span>esult) =&gt; { // check if deleting faq is existing in cloudant</span>
+<span class="cstat-no" title="statement not covered" >    deletedDoc = result;</span>
+    const delDocs = <span class="cstat-no" title="statement not covered" >{docs: []};</span>
+<span class="cstat-no" title="statement not covered" >    logger.debug('result from getting doc : ' + JSON.stringify(result));</span>
+<span class="cstat-no" title="statement not covered" >    for (let i = 0; i &lt; result.docs.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >      delDocs.docs.push(</span>
+        {
+          _id: result.docs[i]._id,
+          _rev: result.docs[i]._rev,
+          _deleted: true
+        }
+      );
+    }
+<span class="cstat-no" title="statement not covered" >    return delDocs;</span>
+  })
+  .then(<span class="fstat-no" title="function not covered" >(d</span>elDocs) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return faqDao.bulkFaqs(delDocs);</span>
+  })
+  .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+    let mergedKeys = <span class="cstat-no" title="statement not covered" >[];</span>
+<span class="cstat-no" title="statement not covered" >    mergedKeys.sort();</span>
+<span class="cstat-no" title="statement not covered" >    for (let i = 0; i &lt; deletedDoc.docs.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >      mergedKeys = mergedKeys.concat(deletedDoc.docs[i].keywords);</span>
+<span class="cstat-no" title="statement not covered" >      mergedIntents.push(deletedDoc.docs[i].question);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    for (let i = 0; i &lt; mergedKeys.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >      if (mergedKeys[i] === mergedKeys[i + 1]) {</span>
+<span class="cstat-no" title="statement not covered" >        mergedKeys.splice(i, 1);</span>
+      }
+    }
+<span class="cstat-no" title="statement not covered" >    logger.debug('merged keys : ' + mergedKeys);</span>
+<span class="cstat-no" title="statement not covered" >    logger.debug('merged intents : ' + mergedIntents);</span>
+<span class="cstat-no" title="statement not covered" >    return faqDao.checkFaqDeleteEntity(mergedKeys).then(<span class="fstat-no" title="function not covered" >(e</span>ntities) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      return entities;</span>
+    });
+  })
+  .then(<span class="fstat-no" title="function not covered" >(e</span>ntities)=&gt; <span class="cstat-no" title="statement not covered" >deleteEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_ENTITY, entities))</span>
+  .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >    return bulkDeleteIntents(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_INTENT, mergedIntents);</span>
+  })
+  .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >    return deletedDoc;</span>
+  });
+};
+&nbsp;
+const updateEntity = (entity, oldKeys, newKeys) =&gt; {
+  return faqDao.checkFaqDeleteEntity(oldKeys).then((result) =&gt; {
+    logger.debug('check entity result: ' + result);
+    return deleteEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, entity, result);
+  }).then(() =&gt; addEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, entity, newKeys));
+};
+&nbsp;
+//Get response data
+const getResponses = (req, res) =&gt; {
+  faqDao.getFaqs().then((body) =&gt; {
+    res.json(body);
+  }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    res.status(500).json(err);</span>
+  });
+};
+&nbsp;
+// Register new faq
+const addResponse = (req, res) =&gt; {
+  let params = req.body;
+  params.keywords = params.keywords.sort();
+  params.question = params.question;
+  setFaq(params).then((result) =&gt; {
+    res.json({result});
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (params.stt_training) {
+<span class="cstat-no" title="statement not covered" >      logger.debug('Adding Corpus checking...');</span>
+<span class="cstat-no" title="statement not covered" >      return addCorpusSTT(params.question, params.keywords);</span>
+    }
+  }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(err.result);</span>
+<span class="cstat-no" title="statement not covered" >    if (err.result &amp;&amp; err.result.includes('duplicated')) {</span>
+<span class="cstat-no" title="statement not covered" >      res.status(403).json({result: {error: err.result}});</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({result: {error: err.result}});</span>
+  });
+};
+&nbsp;
+const getVenue = (req, res) =&gt; {
+  venuesDao.getVenue(req.swagger.params.id.value).then((venue) =&gt; {
+    res.json(venue);
+  })
+  .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(JSON.stringify(err));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (err.error === 'not_found') {</span>
+<span class="cstat-no" title="statement not covered" >      res.status(404).json({result: 'There is no venue for this id : ' + req.swagger.params.id.value});</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({result: 'Server error'});</span>
+  });
+};
+&nbsp;
+// Get venues
+const getVenues = (req, res) =&gt; {
+  venuesDao.getVenues(req.swagger.params.pageNum.value, req.swagger.params.pageSize.value).then((venues) =&gt; {
+    res.json(venues);
+  })
+  .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(JSON.stringify(err));</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json(err);</span>
+  });
+};
+&nbsp;
+const getAvailableVenueNames = (req, res) =&gt; {
+  let type = '';
+  let dayOfWeek = '';
+  let openTime = '';
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (req.swagger.params.type) {
+    type = req.swagger.params.type.value;
+  }
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (req.swagger.params.dayOfWeek) {
+    dayOfWeek = req.swagger.params.dayOfWeek.value;
+  }
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (req.swagger.params.openTime) {
+    openTime = req.swagger.params.openTime.value;
+  }
+  venuesDao.getAvailableVenueNames(type, dayOfWeek, openTime).then((venues) =&gt; {
+    res.json(venues);
+  })
+  .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(JSON.stringify(err));</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({error: err.message});</span>
+  });
+};
+&nbsp;
+const operationAfterAddingVenue = (venueName, synonyms) =&gt; {
+  addWordToSTT(venueName);
+&nbsp;
+  const wcsOperations = [
+    addIntent(LANGUAGE, RESERVATION_CONVERSATION_NAME, RESERVATION_VENUE_INTENT, venueName),
+    addEntity(LANGUAGE, RESERVATION_CONVERSATION_NAME, RESERVATION_VENUE_ENTITY, [venueName], synonyms),
+    addEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, HOTEL_VENUE_ENTITY, [venueName], synonyms)
+  ];
+&nbsp;
+  return BluebirdPromise.all(wcsOperations);
+};
+&nbsp;
+const operationAfterUpdatingVenue = (venueName, synonyms) =&gt; {
+  const wcsOperations = [
+    deleteEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, HOTEL_VENUE_ENTITY, [venueName])
+    .then(() =&gt; addEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, HOTEL_VENUE_ENTITY, [venueName], synonyms)),
+    deleteEntity(LANGUAGE, RESERVATION_CONVERSATION_NAME, RESERVATION_VENUE_ENTITY, [venueName])
+    .then(() =&gt; addEntity(LANGUAGE, RESERVATION_CONVERSATION_NAME, RESERVATION_VENUE_ENTITY, [venueName], synonyms))
+  ];
+&nbsp;
+  return BluebirdPromise.all(wcsOperations);
+};
+&nbsp;
+// add venues
+const addVenue = (req, res) =&gt; {
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (req.body.name.length &gt; 0) {
+    venuesDao.findVenue({name: req.body.name}).then(findedDocs =&gt; {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (findedDocs.docs[0]) {
+<span class="cstat-no" title="statement not covered" >        logger.debug('Duplicated');</span>
+<span class="cstat-no" title="statement not covered" >        throw({code: 403, message: 'Duplicated venue'});</span>
+      } else {
+        const venue = Object.assign({}, req.body);
+        delete venue.responses;
+        return venuesDao.insertVenue(venue);
+      }
+    }).then((insertResult) =&gt; {
+      logger.debug(JSON.stringify(insertResult));
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (req.body.responses &amp;&amp; req.body.responses.length &gt; 0) {
+        return responseDao.bulkResponses({docs: req.body.responses}).then(() =&gt; {
+          return responseDao.findResponse({venue: insertResult.name}).then((responseResult) =&gt; {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (responseResult) {
+              insertResult.responses = responseResult.docs;
+            }
+          });
+        }).then(() =&gt; {
+          console.log('insertResult : ', insertResult);
+          return operationAfterAddingVenue(req.body.name, req.body.synonyms).then(() =&gt; {
+            return insertResult;
+          });
+        });
+      } else {
+<span class="cstat-no" title="statement not covered" >        return operationAfterAddingVenue(req.body.name, req.body.synonyms).then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >          return insertResult;</span>
+        });
+      }
+    }).then((retResult) =&gt; {
+      res.json(retResult);
+    })
+    .catch(<span class="fstat-no" title="function not covered" >fu</span>nction(err) {
+<span class="cstat-no" title="statement not covered" >      logger.error(err);</span>
+      const errCode = <span class="cstat-no" title="statement not covered" >err.code || 500;</span>
+<span class="cstat-no" title="statement not covered" >      res.status(errCode).json({error: err.message});</span>
+    });
+  } else {
+<span class="cstat-no" title="statement not covered" >    res.status(400).json({result: {error: 'Invalid data'}});</span>
+  }
+};
+&nbsp;
+// update venues
+const updateVenue = (req, res) =&gt; {
+  venuesDao.getVenue(req.body.id).then((getResult) =&gt; {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (getResult) {
+      let ven = req.body;
+      ven._id = getResult._id;
+      ven._rev = getResult._rev;
+      ven.name = getResult.name;
+      venuesDao.insertVenue(ven).then((result) =&gt; {
+        logger.debug(JSON.stringify(result));
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (getResult.synonyms &amp;&amp; getResult.synonyms == req.body.synonyms) {
+<span class="cstat-no" title="statement not covered" >          res.json(result);</span>
+        } else {
+          return operationAfterUpdatingVenue(ven.name, req.body.synonyms).then(() =&gt; {
+            return res.json(result);
+          });
+        }
+      });
+    } else {
+<span class="cstat-no" title="statement not covered" >      res.status(400).json({error: 'Invalid data'});</span>
+    }
+  }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({error: err.message});</span>
+  });
+};
+&nbsp;
+// delete venues
+const deleteVenue = (req, res) =&gt; {
+  const id = req.swagger.params.id.value;
+  venuesDao.deleteVenue(id).then((venueData) =&gt; {
+    // delete venue responses
+    return deleteVenueResponses(venueData.name).then((result) =&gt; {
+      const bulkOperation = [
+        deleteIntent(LANGUAGE, RESERVATION_CONVERSATION_NAME, RESERVATION_VENUE_INTENT, venueData.name),
+        deleteEntity(LANGUAGE, RESERVATION_CONVERSATION_NAME, RESERVATION_VENUE_ENTITY, [venueData.name]),
+        deleteEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, HOTEL_VENUE_ENTITY, [venueData.name])
+      ];
+      BluebirdPromise.all(bulkOperation).then(() =&gt; {
+        res.json(venueData);
+        deleteWordFromSTT(venueData.name);
+      });
+    }).catch(<span class="fstat-no" title="function not covered" >fu</span>nction(err) {
+<span class="cstat-no" title="statement not covered" >      logger.error('deleteVenueResponses : ', err);</span>
+<span class="cstat-no" title="statement not covered" >      res.status(500).json({error: err.message});</span>
+    });
+  }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error('deleteVenue : ', err);</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({error: err.message});</span>
+  });
+};
+&nbsp;
+// get response data of venue
+const getVenueResponses = (req, res) =&gt; {
+  responseDao.getResponses(req.swagger.params.pageNum.value, req.swagger.params.pageSize.value, req.swagger.params.venue.value).then((body) =&gt; {
+    res.json(body);
+  }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    res.status(500).json(err);</span>
+  });
+};
+&nbsp;
+// find response using response key
+const findResponse = (req, res) =&gt; {
+  console.log(req.swagger.params.responseKey.value);
+  let output = {};
+  responseDao.findResponse({
+      key: req.swagger.params.responseKey.value,
+      active: true
+    }).then((result) =&gt; {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (result.docs[0]) {
+      output = result.docs[0];
+      venuesDao.findVenue({
+        name: output.venue
+      }).then((result) =&gt; {
+        output.venue = result.docs[0];
+        res.json(output);
+      }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >        logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(500).json(err);</span>
+      });
+    } else {
+<span class="cstat-no" title="statement not covered" >      res.status(404).json({result: {error: 'Not found'}});</span>
+    }
+  }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json(err);</span>
+  });
+};
+&nbsp;
+//find venue using name
+const getVenueByName = (req, res) =&gt; {
+  venuesDao.findVenue({name: req.swagger.params.name.value}).then(findedDocs =&gt; {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (findedDocs.docs[0]) {
+      res.json(findedDocs.docs[0]);
+    } else {
+<span class="cstat-no" title="statement not covered" >      res.status(400).json({error: 'Not found'});</span>
+    }
+  }).catch(<span class="fstat-no" title="function not covered" >fu</span>nction(err) {
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({error: err.message});</span>
+  });
+};
+&nbsp;
+// find Faq using keywords array
+const findFaq = (req, res) =&gt; {
+  faqDao.findFaq({
+    'keywords': {
+      '$all': req.body.keywords,
+    }
+  }).then(function(result) {
+    res.json(result);
+  }).catch(<span class="fstat-no" title="function not covered" >fu</span>nction(err) {
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({error: err.message});</span>
+  });
+};
+&nbsp;
+// find Faq using watson discovery service
+const findFaqDiscovery = <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  logger.debug('question', req.body.question);</span>
+<span class="cstat-no" title="statement not covered" >  queryDiscoveryData(req.body.question).then(<span class="fstat-no" title="function not covered" >(r</span>esult) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    logger.debug('result from hotel', result);</span>
+<span class="cstat-no" title="statement not covered" >    if (result.results &amp;&amp; result.results.length &gt; 0) {</span>
+      const answer = <span class="cstat-no" title="statement not covered" >result.results[0].answer;</span>
+<span class="cstat-no" title="statement not covered" >      res.json({result: answer});</span>
+    }
+  }).catch(<span class="fstat-no" title="function not covered" >fu</span>nction(err) {
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({error: err.message});</span>
+  });
+};
+&nbsp;
+// add response data of venue
+function addVenueResponses(req, res) {
+  responseDao.insertResponse(req.body).then(function(result) {
+    logger.debug(JSON.stringify(result));
+    res.json(result);
+  }).catch(<span class="fstat-no" title="function not covered" >fu</span>nction(err) {
+<span class="cstat-no" title="statement not covered" >    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json(err);</span>
+  });
+}
+&nbsp;
+// update response data of venue
+const updateVenueResponses = <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  responseDao.getResponse(req.body.id).then(<span class="fstat-no" title="function not covered" >fu</span>nction(result) {</span>
+    let resp = <span class="cstat-no" title="statement not covered" >result;</span>
+<span class="cstat-no" title="statement not covered" >    resp.response = req.body.response;</span>
+<span class="cstat-no" title="statement not covered" >    resp.arg = req.body.arg;</span>
+<span class="cstat-no" title="statement not covered" >    resp.active = req.body.active;</span>
+<span class="cstat-no" title="statement not covered" >    responseDao.insertResponse(resp).then(<span class="fstat-no" title="function not covered" >fu</span>nction(result) {</span>
+<span class="cstat-no" title="statement not covered" >      logger.debug(JSON.stringify(result));</span>
+<span class="cstat-no" title="statement not covered" >      res.json(result);</span>
+    }).catch(<span class="fstat-no" title="function not covered" >fu</span>nction(err) {
+<span class="cstat-no" title="statement not covered" >      logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >      res.status(500).json(err);</span>
+    });
+  }).catch(<span class="fstat-no" title="function not covered" >fu</span>nction(err) {
+<span class="cstat-no" title="statement not covered" >    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json(err);</span>
+  });
+};
+&nbsp;
+// Update response
+const updateResponse = (req, res) =&gt; {
+  let prevId = req.body.id;
+  let editRes = {
+    question: req.body.newQuestion,
+    answer: req.body.newAnswer,
+    keywords: req.body.newKeywords.sort(),
+    stt_training: req.body.stt_training
+  };
+  updateFaq(prevId, editRes).then(function(result) {
+    res.json({editRes});
+    const pParams = result;
+    logger.debug('previous params : ' + JSON.stringify(pParams));
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (editRes.stt_training &amp;&amp; (<span class="branch-1 cbranch-no" title="branch not covered" >editRes.question !== pParams.question </span>|| <span class="branch-2 cbranch-no" title="branch not covered" >!arraysEqual(editRes.keywords, pParams.keywords))</span>) {
+<span class="cstat-no" title="statement not covered" >      updateCorpusSTT(pParams, editRes).then(<span class="fstat-no" title="function not covered" >fu</span>nction(result) { // TODO: should be implemented in UI in the future</span>
+<span class="cstat-no" title="statement not covered" >        logger.debug('updating corpus success');</span>
+      }).catch(<span class="fstat-no" title="function not covered" >fu</span>nction(err) {
+<span class="cstat-no" title="statement not covered" >        logger.error(err);</span>
+      });
+    }
+  }).catch(<span class="fstat-no" title="function not covered" >fu</span>nction(err) {
+<span class="cstat-no" title="statement not covered" >    logger.error(err.result);</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({result: err.result});</span>
+  });
+};
+&nbsp;
+//Delete faq
+const deleteResponse = (req, res) =&gt; {
+  let ids = req.body.id;
+  let params = {};
+  let deletedCloudant = false;
+  let deletedIntent = false;
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (ids.length == 1) {
+    faqDao.deleteFaq(ids[0]).then((result) =&gt; {
+      params = result;
+      deletedCloudant = true;
+      return deleteIntent(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_INTENT, params.question).catch(<span class="fstat-no" title="function not covered" >()</span>=&gt; {
+<span class="cstat-no" title="statement not covered" >        throw {result: 'deleting intent failed'};</span>
+      });
+    }).then((result) =&gt; {
+      deletedIntent = true;
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (params.keywords) {
+        params.keywords.sort();
+        return faqDao.checkFaqDeleteEntity(params.keywords).then((result) =&gt; {
+          return deleteEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_ENTITY, result)
+          .catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >            throw {result: 'delete entity failed'};</span>
+          });
+        }).catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >          throw {result: 'checking entity failed'};</span>
+        })
+        .then(() =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (params.stt_training) {
+<span class="cstat-no" title="statement not covered" >            return deleteCorpusSTT(params.keywords);</span>
+          }
+        })
+        .then(() =&gt; {
+          const resultObj = {result: 'SUCCESS: Deleting generic response has been succeeded'};
+          res.json({result: resultObj});
+        });
+      }
+    }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >      if (deletedCloudant &amp;&amp; !deletedIntent) {</span>
+<span class="cstat-no" title="statement not covered" >        faqDao.addFaq(params)</span>
+        .finally(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >          res.status(500).json(err);</span>
+        });
+      } else {
+<span class="cstat-no" title="statement not covered" >        res.status(500).json(err);</span>
+      }
+    });
+  } else <span class="cstat-no" title="statement not covered" >if (ids.length &gt; 1) {</span>
+<span class="cstat-no" title="statement not covered" >    bulkDeleteFaqs(ids).then(<span class="fstat-no" title="function not covered" >fu</span>nction(result) {</span>
+      const deletedArr = <span class="cstat-no" title="statement not covered" >result;</span>
+<span class="cstat-no" title="statement not covered" >      for (let i = 0; i &lt; deletedArr.docs.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >        deleteCorpusSTT(deletedArr.docs[i].keywords);</span>
+      }
+      const resultObj = <span class="cstat-no" title="statement not covered" >{result: 'SUCCESS: Deleting all generic responses has been succeeded'};</span>
+<span class="cstat-no" title="statement not covered" >      res.json({result: resultObj});</span>
+    }).catch(<span class="fstat-no" title="function not covered" >fu</span>nction(err) {
+<span class="cstat-no" title="statement not covered" >      logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >      res.status(500).json({result: 'Failed'});</span>
+    });
+  }
+};
+&nbsp;
+const isTraining = <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  getWorkspaceStatus(LANGUAGE, HOTEL_CONVERSATION_NAME).then(<span class="fstat-no" title="function not covered" >st</span>atus =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (status === WCS_STATUS_AVAILABLE) {</span>
+<span class="cstat-no" title="statement not covered" >      res.status(200).json({result: true});</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      res.status(200).json({result: false});</span>
+    }
+  });
+};
+&nbsp;
+const addDiscoveryResponse = <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  if (!checkDiscovery()) {</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({result: {error: 'Discovery is not enabled'}});</span>
+<span class="cstat-no" title="statement not covered" >    return;</span>
+  }
+  let params = <span class="cstat-no" title="statement not covered" >req.body;</span>
+  let docId;
+  const myDoc = <span class="cstat-no" title="statement not covered" >{</span>
+    question: params.question,
+    answer: params.answer
+  };
+<span class="cstat-no" title="statement not covered" >  addDiscoveryData(myDoc)</span>
+  .then(<span class="fstat-no" title="function not covered" >da</span>ta =&gt; {
+<span class="cstat-no" title="statement not covered" >    params.document_id = data.document_id;</span>
+<span class="cstat-no" title="statement not covered" >    return params;</span>
+  })
+  .then(<span class="fstat-no" title="function not covered" >pa</span>rams =&gt; <span class="cstat-no" title="statement not covered" >faqDiscoveryDao.addFaq(params))</span>
+  .then(<span class="fstat-no" title="function not covered" >re</span>sult =&gt; {
+<span class="cstat-no" title="statement not covered" >    docId = result.id;</span>
+<span class="cstat-no" title="statement not covered" >    addBulkIntents(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_INTENT, params.question);</span>
+<span class="cstat-no" title="statement not covered" >    return result;</span>
+  })
+  .then(<span class="fstat-no" title="function not covered" >re</span>sult =&gt; {
+<span class="cstat-no" title="statement not covered" >    res.json({result});</span>
+<span class="cstat-no" title="statement not covered" >    if (params.stt_training) {</span>
+<span class="cstat-no" title="statement not covered" >      logger.debug('Adding Corpus checking...');</span>
+<span class="cstat-no" title="statement not covered" >      return addDiscoveryCorpusSTT(docId, params.question);</span>
+    }
+  })
+  .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    res.status(403).json({result: {error: err.result}});</span>
+  });
+};
+&nbsp;
+const deleteDiscoveryResponse = <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  if (!checkDiscovery()) {</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({result: {error: 'Discovery is not enabled'}});</span>
+<span class="cstat-no" title="statement not covered" >    return;</span>
+  }
+  let ids = <span class="cstat-no" title="statement not covered" >req.body.id;</span>
+  let params = <span class="cstat-no" title="statement not covered" >{};</span>
+<span class="cstat-no" title="statement not covered" >  if (ids.length == 1) {</span>
+<span class="cstat-no" title="statement not covered" >    faqDiscoveryDao.deleteFaq(ids[0]).then(<span class="fstat-no" title="function not covered" >re</span>sult =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      params = result;</span>
+<span class="cstat-no" title="statement not covered" >      logger.debug('deleted questions', params.question);</span>
+<span class="cstat-no" title="statement not covered" >      if (params.document_id) {</span>
+<span class="cstat-no" title="statement not covered" >        deleteDiscoveryData(params.document_id)</span>
+        .then(<span class="fstat-no" title="function not covered" >re</span>sult =&gt; {
+<span class="cstat-no" title="statement not covered" >          bulkDeleteIntents(LANGUAGE, HOTEL_CONVERSATION_NAME, FAQ_INTENT, params.question);</span>
+<span class="cstat-no" title="statement not covered" >          return result;</span>
+        })
+        .then(<span class="fstat-no" title="function not covered" >re</span>sult =&gt; {
+<span class="cstat-no" title="statement not covered" >          res.json({result});</span>
+<span class="cstat-no" title="statement not covered" >          if (params.stt_training) {</span>
+<span class="cstat-no" title="statement not covered" >            return deleteDiscoveryCorpusSTT(ids[0]);</span>
+          }
+        }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >          res.status(500).json(err);</span>
+        });
+      }
+    });
+  } else {
+<span class="cstat-no" title="statement not covered" >    bulkDeleteDiscoveryFaqs(ids).then(<span class="fstat-no" title="function not covered" >fu</span>nction(result) {</span>
+      const deletedArr = <span class="cstat-no" title="statement not covered" >result;</span>
+<span class="cstat-no" title="statement not covered" >      logger.debug('delete docs', deletedArr.docs);</span>
+<span class="cstat-no" title="statement not covered" >      for (let i = 0; i &lt; deletedArr.docs.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >        if (deletedArr.docs[i].stt_training) {</span>
+<span class="cstat-no" title="statement not covered" >          deleteDiscoveryCorpusSTT(deletedArr.docs[i]._id);</span>
+        }
+      }
+      const resultObj = <span class="cstat-no" title="statement not covered" >{result: 'SUCCESS: Deleting all generic responses has been succeeded'};</span>
+<span class="cstat-no" title="statement not covered" >      res.json({result: resultObj});</span>
+    }).catch(<span class="fstat-no" title="function not covered" >fu</span>nction(err) {
+<span class="cstat-no" title="statement not covered" >      logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >      res.status(500).json({result: 'Failed'});</span>
+    });
+  }
+};
+&nbsp;
+const updateDiscoveryResponse = <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  if (!checkDiscovery()) {</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({result: {error: 'Discovery is not enabled'}});</span>
+<span class="cstat-no" title="statement not covered" >    return;</span>
+  }
+  let prevId = <span class="cstat-no" title="statement not covered" >req.body.id;</span>
+  let editRes = <span class="cstat-no" title="statement not covered" >{</span>
+    question: req.body.newQuestion,
+    answer: req.body.newAnswer,
+    metadata: req.body.newMetadata,
+    stt_training: req.body.stt_training
+  };
+<span class="cstat-no" title="statement not covered" >  updateDiscovery(prevId, editRes).then(<span class="fstat-no" title="function not covered" >re</span>sult =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    res.json({editRes});</span>
+    const pParams = <span class="cstat-no" title="statement not covered" >result;</span>
+<span class="cstat-no" title="statement not covered" >    pParams.question.sort();</span>
+<span class="cstat-no" title="statement not covered" >    editRes.question.sort();</span>
+<span class="cstat-no" title="statement not covered" >    logger.debug('previous params : ', JSON.stringify(pParams));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (!pParams.stt_training &amp;&amp; editRes.stt_training) {</span>
+<span class="cstat-no" title="statement not covered" >      return addDiscoveryCorpusSTT(prevId, editRes.question); </span> // TODO: should be implemented in UI in the future
+    } else <span class="cstat-no" title="statement not covered" >if (pParams.stt_training &amp;&amp; !editRes.stt_training) {</span>
+<span class="cstat-no" title="statement not covered" >      return deleteDiscoveryCorpusSTT(pParams._id);</span>
+    } else <span class="cstat-no" title="statement not covered" >if (pParams.stt_training &amp;&amp; editRes.stt_training &amp;&amp; !arraysEqual(pParams.question, editRes.question)) {</span>
+<span class="cstat-no" title="statement not covered" >      return deleteDiscoveryCorpusSTT(pParams._id)</span>
+      .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >addDiscoveryCorpusSTT(prevId, editRes.question))</span>
+      .catch(<span class="fstat-no" title="function not covered" >fu</span>nction(err) {
+<span class="cstat-no" title="statement not covered" >        logger.error(err);</span>
+      });
+    }
+  }).catch(<span class="fstat-no" title="function not covered" >fu</span>nction(err) {
+<span class="cstat-no" title="statement not covered" >    logger.error(err.result);</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({result: err.result});</span>
+  });
+};
+&nbsp;
+const getDiscoveryResponses = <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  if (!checkDiscovery()) {</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({result: {error: 'Discovery is not enabled'}});</span>
+<span class="cstat-no" title="statement not covered" >    return;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  faqDiscoveryDao.getFaqs().then(<span class="fstat-no" title="function not covered" >(b</span>ody) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    res.json(body);</span>
+  }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    res.status(500).json(err);</span>
+  });
+};
+&nbsp;
+const deleteVenueStartsWith = <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
+  const prefix = <span class="cstat-no" title="statement not covered" >req.swagger.params.prefix.value;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (prefix &amp;&amp; prefix.length &gt; 0) {</span>
+    // delete venue from db
+<span class="cstat-no" title="statement not covered" >    venuesDao.deleteVenueStartsWith(prefix).then(<span class="fstat-no" title="function not covered" >ve</span>nueNames =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      if (venueNames &amp;&amp; venueNames.length &gt;= 0) {</span>
+        // delete response from db
+<span class="cstat-no" title="statement not covered" >        return deleteVenueResponses(venueNames).then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+          // delete intent from wcs
+<span class="cstat-no" title="statement not covered" >          return bulkDeleteIntents(LANGUAGE, RESERVATION_CONVERSATION_NAME, RESERVATION_VENUE_INTENT, venueNames);</span>
+        }).finally(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+          // delete entity from wcs
+<span class="cstat-no" title="statement not covered" >          return deleteEntity(LANGUAGE, RESERVATION_CONVERSATION_NAME, RESERVATION_VENUE_ENTITY, venueNames);</span>
+        }).finally(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >          return deleteEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, HOTEL_VENUE_ENTITY, venueNames);</span>
+        }).finally(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >          res.status(200).json({result: 'Success!!'});</span>
+        }).catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+        });
+      } else {
+<span class="cstat-no" title="statement not covered" >        res.status(200).json({result: 'Success!!'});</span>
+      }
+    }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >      logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >      res.status(500).json({result: 'Failed'});</span>
+    });
+  } else {
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({error: 'Invalid input'});</span>
+  }
+};
+&nbsp;
+const bulkDeleteType = <span class="fstat-no" title="function not covered" >(i</span>ds) =&gt; {
+  let deletedDoc;
+  const selector = <span class="cstat-no" title="statement not covered" >{</span>
+    _id: {
+      $in: ids
+    }
+  };
+<span class="cstat-no" title="statement not covered" >  return venueTypeDao.findType(selector).then(<span class="fstat-no" title="function not covered" >re</span>sult =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    deletedDoc = result;</span>
+    const delDocs = <span class="cstat-no" title="statement not covered" >{docs: []};</span>
+<span class="cstat-no" title="statement not covered" >    logger.debug('result from getting doc : ' + JSON.stringify(result));</span>
+<span class="cstat-no" title="statement not covered" >    for (let i = 0; i &lt; result.docs.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >      delDocs.docs.push(</span>
+        {
+          _id: result.docs[i]._id,
+          _rev: result.docs[i]._rev,
+          _deleted: true
+        }
+      );
+    }
+<span class="cstat-no" title="statement not covered" >    return delDocs;</span>
+  })
+  .then(<span class="fstat-no" title="function not covered" >de</span>lDocs =&gt; {
+<span class="cstat-no" title="statement not covered" >    venueTypeDao.bulkTypes(delDocs);</span>
+<span class="cstat-no" title="statement not covered" >    return deletedDoc;</span>
+  })
+  .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(JSON.stringify(err));</span>
+<span class="cstat-no" title="statement not covered" >    return err;</span>
+  });
+};
+&nbsp;
+const getVenueTypes = (req, res) =&gt; {
+  return venueTypeDao.getTypes()
+  .then(result =&gt; res.json(result))
+  .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({result: 'Failed'});</span>
+  });
+};
+&nbsp;
+const addVenueType = (req, res) =&gt; {
+  const newType = req.body;
+  return venueTypeDao.insertType(newType)
+  .then(result =&gt; {
+    addEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, TYPE_ENTITY, [result.type], result.synonyms ? <span class="branch-0 cbranch-no" title="branch not covered" >result.synonyms </span>: null);
+    return result;
+  })
+  .then(result =&gt; res.json(result))
+  .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({result: 'Failed'});</span>
+  });
+};
+&nbsp;
+const deleteVenueType = (req, res) =&gt; {
+  const ids = req.body.id;
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (ids.length == 1) {
+    return venueTypeDao.deleteType(ids[0])
+    .then(result =&gt; {
+      deleteEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, TYPE_ENTITY, [result.type]);
+      return result;
+    })
+    .then(result =&gt; res.json(result))
+    .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >      logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >      res.status(500).json({result: 'Failed'});</span>
+    });
+  } else <span class="cstat-no" title="statement not covered" >if (ids.length &gt; 1) {</span>
+    let delEntities = <span class="cstat-no" title="statement not covered" >[];</span>
+<span class="cstat-no" title="statement not covered" >    bulkDeleteType(ids).then(<span class="fstat-no" title="function not covered" >(r</span>esult) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      result.docs.map(<span class="fstat-no" title="function not covered" >ty</span>pe =&gt; <span class="cstat-no" title="statement not covered" >delEntities.push(type.type))</span>;</span>
+<span class="cstat-no" title="statement not covered" >      deleteEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, TYPE_ENTITY, delEntities);</span>
+<span class="cstat-no" title="statement not covered" >      return result.docs;</span>
+    })
+    .then(<span class="fstat-no" title="function not covered" >re</span>sult =&gt; <span class="cstat-no" title="statement not covered" >res.json(result))</span>
+    .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >      logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >      res.status(500).json({result: 'Failed'});</span>
+    });
+  }
+};
+&nbsp;
+const updateVenueType = (req, res) =&gt; {
+  const id = req.body.id;
+  return venueTypeDao.getType(id)
+  .then(doc =&gt; {
+    doc.ONE_RESPONSE = req.body.ONE_RESPONSE;
+    doc.MULT_RESPONSE = req.body.MULT_RESPONSE;
+    doc.NO_RESPONSE = req.body.NO_RESPONSE;
+    doc.LOC_RESPONSE = req.body.LOC_RESPONSE;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if ((doc.synonyms &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!arraysEqual(doc.synonyms, req.body.synonyms))</span> || (!doc.synonyms &amp;&amp; req.body.synonyms.length &gt; 0)) {
+      doc.synonyms = req.body.synonyms;
+      deleteEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, TYPE_ENTITY, [doc.type])
+      .then(() =&gt; addEntity(LANGUAGE, HOTEL_CONVERSATION_NAME, TYPE_ENTITY, [doc.type], doc.synonyms))
+      .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >doc)</span>;
+    }
+    return doc;
+  })
+  .then(newDoc =&gt; {
+    logger.debug('updated type responses', newDoc);
+    return venueTypeDao.insertType(newDoc);
+  })
+  .then(result =&gt; res.json(result))
+  .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({result: 'Failed'});</span>
+  });
+};
+&nbsp;
+const getTypeResponses = (req, res) =&gt; {
+  const type = req.swagger.params.type.value;
+  const selector = {
+    type
+  };
+  return venueTypeDao.findType(selector)
+  .then(result =&gt; {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (result.docs &amp;&amp; result.docs[0]) {
+      res.json(result.docs[0]);
+    } else {
+<span class="cstat-no" title="statement not covered" >      res.status(404).json({result: 'Not Found'});</span>
+    }
+  })
+  .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({result: 'Failed'});</span>
+  });
+};
+&nbsp;
+module.exports = {
+  addResponse,
+  deleteResponse,
+  updateResponse,
+  getResponses,
+  getVenue,
+  getVenues,
+  getAvailableVenueNames,
+  addVenue,
+  deleteVenue,
+  updateVenue,
+  getVenueResponses,
+  addVenueResponses,
+  updateVenueResponses,
+  findResponse,
+  findFaq,
+  findFaqDiscovery,
+  getVenueByName,
+  isTraining,
+  getDiscoveryResponses,
+  addDiscoveryResponse,
+  deleteDiscoveryResponse,
+  updateDiscoveryResponse,
+  deleteVenueStartsWith,
+  getVenueTypes,
+  addVenueType,
+  deleteVenueType,
+  updateVenueType,
+  getTypeResponses,
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jan 08 2018 16:41:40 GMT+0900 (KST)
+</div>
+</div>
+<script src="../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../sorter.js"></script>
+</body>
+</html>

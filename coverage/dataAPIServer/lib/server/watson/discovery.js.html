@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for dataAPIServer/lib/server/watson/discovery.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">dataAPIServer/lib/server/watson</a> discovery.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">26.37% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>24/91</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">15% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>3/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.71% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>2/35</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">27.27% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>24/88</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+*  IBM Confidential
+*
+*  OCO Source Materials
+*
+*  5799-MA4
+*
+*  © Copyright IBM Corp. 2017
+*
+*  The source code for this program is not published or otherwise divested of its trade secrets,
+*  irrespective of what has been deposited with the U.S. Copyright Office.
+*/
+&nbsp;
+'use strict';
+&nbsp;
+const DiscoveryV1 = require('watson-developer-cloud/discovery/v1');
+const BluebirdPromise = require('bluebird');
+const discoveryCredential = require('../util/cred_discovery').getDiscoveryCredentials();
+const logger = require('../util/logger');
+const discoveryEnvName = 'responses';
+const discoveryCollectionName = 'genericResponses';
+const discoveryConfigName = 'Default Configuration';
+const {getConfig} = require('../data/config');
+&nbsp;
+// create init discovery
+let discovery;
+let discoveryEnabled;
+let envId;
+let collectionId;
+let configId;
+&nbsp;
+const initDiscovery = () =&gt; {
+  getConfig().then(result =&gt; {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (result.discovery &amp;&amp; !discovery) {
+      discovery = BluebirdPromise.promisifyAll(
+        new DiscoveryV1(discoveryCredential)
+      );
+      discoveryEnabled = true;
+    } else <span class="cstat-no" title="statement not covered" >if (!result.discovery) {</span>
+<span class="cstat-no" title="statement not covered" >      discoveryEnabled = false;</span>
+    }
+    return discovery;
+  });
+};
+&nbsp;
+const checkDiscovery = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >  return discoveryEnabled;</span>
+};
+&nbsp;
+const setDiscovery = <span class="fstat-no" title="function not covered" >(f</span>lag) =&gt; {
+<span class="cstat-no" title="statement not covered" >  discoveryEnabled = flag;</span>
+};
+&nbsp;
+const getEnvId = <span class="fstat-no" title="function not covered" >(n</span>ame, callback) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return new BluebirdPromise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (envId) {</span>
+<span class="cstat-no" title="statement not covered" >      resolve(envId);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      discovery.getEnvironmentsAsync({}).then(<span class="fstat-no" title="function not covered" >(r</span>esult) =&gt; {</span>
+        let env = <span class="cstat-no" title="statement not covered" >result.environments.find(<span class="fstat-no" title="function not covered" >en</span>vironment =&gt; <span class="cstat-no" title="statement not covered" >environment.name === name)</span>;</span>
+<span class="cstat-no" title="statement not covered" >        if (env) {</span>
+<span class="cstat-no" title="statement not covered" >          envId = env.environment_id;</span>
+<span class="cstat-no" title="statement not covered" >          resolve(envId);</span>
+<span class="cstat-no" title="statement not covered" >          return;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        logger.debug('there is no env');</span>
+<span class="cstat-no" title="statement not covered" >        discovery.createEnvironmentAsync({name, description: name, size: 1}).then(<span class="fstat-no" title="function not covered" >(d</span>ata) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >          if (data) {</span>
+<span class="cstat-no" title="statement not covered" >            envId = data.environment_id;</span>
+<span class="cstat-no" title="statement not covered" >            resolve(envId);</span>
+          }
+        }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; <span class="cstat-no" title="statement not covered" >reject(err))</span>;
+      });
+    }
+  });
+};
+&nbsp;
+const getConfigurationId = <span class="fstat-no" title="function not covered" >(i</span>d) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return new BluebirdPromise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (configId) {</span>
+<span class="cstat-no" title="statement not covered" >      resolve(configId);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      discovery.getConfigurationsAsync({environment_id: id}).then(<span class="fstat-no" title="function not covered" >(d</span>ata) =&gt; {</span>
+        let config = <span class="cstat-no" title="statement not covered" >data.configurations.find(<span class="fstat-no" title="function not covered" >co</span>nfig =&gt; <span class="cstat-no" title="statement not covered" >config.name === discoveryConfigName)</span>;</span>
+<span class="cstat-no" title="statement not covered" >        configId = config.configuration_id;</span>
+<span class="cstat-no" title="statement not covered" >        resolve(configId);</span>
+      }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; <span class="cstat-no" title="statement not covered" >reject(err))</span>;
+    }
+  });
+};
+&nbsp;
+const getCollectionId = <span class="fstat-no" title="function not covered" >(n</span>ame, language, callback) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return new BluebirdPromise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (collectionId) {</span>
+<span class="cstat-no" title="statement not covered" >      resolve(collectionId);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      getEnvId(discoveryEnvName).then(<span class="fstat-no" title="function not covered" >(e</span>nvId) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        discovery.getCollectionsAsync({environment_id: envId}).then(<span class="fstat-no" title="function not covered" >(r</span>esult) =&gt; {</span>
+          let col = <span class="cstat-no" title="statement not covered" >result.collections.find(<span class="fstat-no" title="function not covered" >co</span>llection =&gt; <span class="cstat-no" title="statement not covered" >collection.name === name)</span>;</span>
+<span class="cstat-no" title="statement not covered" >          if (col) {</span>
+<span class="cstat-no" title="statement not covered" >            collectionId = col.collection_id;</span>
+<span class="cstat-no" title="statement not covered" >            resolve(collectionId);</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          logger.debug('there is no collection');</span>
+<span class="cstat-no" title="statement not covered" >          getConfigurationId(envId).then(<span class="fstat-no" title="function not covered" >(c</span>onfigId) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            discovery.createCollectionAsync({environment_id: envId, description: name, configuration_id: configId, name, language}).then(<span class="fstat-no" title="function not covered" >(d</span>ata) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >              if (data) {</span>
+<span class="cstat-no" title="statement not covered" >                collectionId = data.collection_id;</span>
+<span class="cstat-no" title="statement not covered" >                resolve(collectionId);</span>
+              }
+            });
+          });
+        }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; <span class="cstat-no" title="statement not covered" >reject(err))</span>;
+      });
+    }
+  });
+};
+&nbsp;
+const addDiscoveryData = <span class="fstat-no" title="function not covered" >(d</span>oc) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return getCollectionId(discoveryCollectionName, 'en').then(<span class="fstat-no" title="function not covered" >co</span>llectionId =&gt; {</span>
+    const queryParams = <span class="cstat-no" title="statement not covered" >{</span>
+      file: doc,
+      metadata: '{"Content-Type":"application/json"}',
+      environment_id: envId,
+      collection_id: collectionId
+    };
+<span class="cstat-no" title="statement not covered" >    return discovery.addJsonDocumentAsync(queryParams);</span>
+  }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >    throw {result: 'Failed to add data '};</span>
+  });
+};
+&nbsp;
+const deleteDiscoveryData = <span class="fstat-no" title="function not covered" >(d</span>ocId) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return getCollectionId(discoveryCollectionName, 'en').then(<span class="fstat-no" title="function not covered" >(c</span>ollectionId) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return discovery.deleteDocumentAsync({environment_id: envId, collection_id: collectionId, document_id: docId});</span>
+  }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >    throw {result: 'Failed to delete data '};</span>
+  });
+};
+&nbsp;
+const updateDiscoveryData = <span class="fstat-no" title="function not covered" >(d</span>oc, docId) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return getCollectionId(discoveryCollectionName, 'en').then(<span class="fstat-no" title="function not covered" >(c</span>ollectionId) =&gt; {</span>
+    const queryParams = <span class="cstat-no" title="statement not covered" >{</span>
+      file: doc,
+      metadata: '{"Content-Type":"application/json"}',
+      environment_id: envId,
+      collection_id: collectionId,
+      document_id: docId
+    };
+<span class="cstat-no" title="statement not covered" >    return discovery.updateJsonDocumentAsync(queryParams);</span>
+  }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >    throw {result: 'Failed to update data '};</span>
+  });
+};
+&nbsp;
+const queryDiscoveryData = <span class="fstat-no" title="function not covered" >(q</span>uestion) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return getCollectionId(discoveryCollectionName, 'en').then(<span class="fstat-no" title="function not covered" >(c</span>ollectionId) =&gt; {</span>
+    const queryParams = <span class="cstat-no" title="statement not covered" >{</span>
+      natural_language_query: question,         // query string
+      count: 1,                   // result count
+      return: 'question, answer', // default field : id, score, document field, field,..
+      environment_id: envId,
+      collection_id: collectionId
+    };
+<span class="cstat-no" title="statement not covered" >    logger.debug('queryparmas', queryParams);</span>
+<span class="cstat-no" title="statement not covered" >    return discovery.queryAsync(queryParams);</span>
+  }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >    throw {result: 'Failed to update data '};</span>
+  });
+};
+&nbsp;
+module.exports = {
+  addDiscoveryData,
+  deleteDiscoveryData,
+  queryDiscoveryData,
+  updateDiscoveryData,
+  initDiscovery,
+  checkDiscovery,
+  setDiscovery,
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jan 08 2018 16:41:40 GMT+0900 (KST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

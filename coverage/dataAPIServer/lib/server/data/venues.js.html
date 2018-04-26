@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for dataAPIServer/lib/server/data/venues.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">dataAPIServer/lib/server/data</a> venues.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">67.61% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>48/71</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">34.21% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>13/38</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">66.67% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>14/21</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">68.18% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>45/66</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+*  IBM Confidential
+*
+*  OCO Source Materials
+*
+*  5799-MA4
+*
+*  © Copyright IBM Corp. 2017
+*
+*  The source code for this program is not published or otherwise divested of its trade secrets,
+*  irrespective of what has been deposited with the U.S. Copyright Office.
+*/
+&nbsp;
+'use strict';
+&nbsp;
+const BluebirdPromise = require('bluebird');
+const Cloudant = require('cloudant');
+const cloudantCredential = require('../util/cred_cloudant').getCloudantCredentials('responses');
+const logger = require('../util/logger');
+&nbsp;
+const cloudant = Cloudant(cloudantCredential);
+const VENUE_DB_NAME = 'venues';
+const DEFAULT_PAGE_LIMIT = 10000;
+&nbsp;
+let _db = BluebirdPromise.promisifyAll(cloudant.use(VENUE_DB_NAME));
+&nbsp;
+const getVenue = (id) =&gt; {
+  return _db.getAsync(id).then((body) =&gt; {
+    return body;
+  });
+};
+&nbsp;
+const getVenues = (pageNum, pageSize) =&gt; {
+  let skip = 0;
+  let limit = DEFAULT_PAGE_LIMIT;
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (pageSize) {
+<span class="cstat-no" title="statement not covered" >    limit = pageSize;</span>
+  }
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (pageNum &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >pageSize)</span> {
+<span class="cstat-no" title="statement not covered" >    skip = pageNum * pageSize;</span>
+  }
+&nbsp;
+  return _db.viewAsync('view_venues', 'venues', {include_docs: true, limit, skip})
+  .then((body) =&gt; {
+    const total = body.total_rows;
+    const offset = body.offset;
+    let venues = [];
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (body.rows &amp;&amp; body.rows.length &gt; 0) {
+      venues = body.rows.map(row =&gt; row.doc);
+    }
+    return {
+      total,
+      offset,
+      data: venues
+    };
+  });
+};
+&nbsp;
+const getAvailableVenueNames = (type, dayofweek, openTime) =&gt; {
+  logger.debug('getVenues : type = ' + type + ', dayofweek = ' + dayofweek + ', openTime = ' + openTime);
+  <span class="missing-if-branch" title="else path not taken" >E</span>if ((!type || <span class="branch-1 cbranch-no" title="branch not covered" >type.length === 0)</span> &amp;&amp; (!openTime || <span class="branch-3 cbranch-no" title="branch not covered" >openTime.length === 0)</span>) {
+    return _db.viewAsync('view_venues', 'venues', {include_docs: true})
+    .then((body) =&gt; {
+      let venues = [];
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (body.rows &amp;&amp; body.rows.length &gt; 0) {
+        venues = body.rows.map(row =&gt; row.doc ? row.doc.name : <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>;
+      }
+      return venues;
+    });
+  } else {
+    let query = <span class="cstat-no" title="statement not covered" >`type: ${type}`;</span>
+<span class="cstat-no" title="statement not covered" >    if (dayofweek &amp;&amp; dayofweek.length !== 0 &amp;&amp; openTime &amp;&amp; openTime.length !== 0) {</span>
+<span class="cstat-no" title="statement not covered" >      query += ` AND ${dayofweek}_start:[00:00 TO ${openTime}] AND ${dayofweek}_end:[${openTime} TO 24:00]`;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    logger.debug('query = ' + query);</span>
+<span class="cstat-no" title="statement not covered" >    return _db.searchAsync('venue', 'searchVenue', {</span>
+      q: query,
+      include_docs: true,
+    }).then(<span class="fstat-no" title="function not covered" >(b</span>ody) =&gt; {
+      let venues = <span class="cstat-no" title="statement not covered" >[];</span>
+<span class="cstat-no" title="statement not covered" >      if (body.rows &amp;&amp; body.rows.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >        venues = body.rows.map(<span class="fstat-no" title="function not covered" >ro</span>w =&gt; <span class="cstat-no" title="statement not covered" >row.doc ? row.doc.name : '')</span>;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      return venues;</span>
+    });
+  }
+};
+&nbsp;
+const findVenue = (selector) =&gt; {
+  return _db.findAsync({selector});
+};
+&nbsp;
+const insertVenue = (venue) =&gt; {
+  return _db.insertAsync(venue).then((doc) =&gt; _db.getAsync(doc.id));
+};
+&nbsp;
+//delete caq document from cloudant
+const deleteVenue = (id) =&gt; {
+  return getVenue(id).then((result) =&gt; { // check if deleting faq is existing in cloudant
+    logger.debug('result from getting doc : ' + JSON.stringify(result));
+    let docId = result._id;
+    let docRev = result._rev;
+    let delDoc = result;
+    return _db.destroyAsync(docId, docRev).then(() =&gt; {
+      return delDoc;
+    });
+  });
+};
+&nbsp;
+const deleteVenueStartsWith = <span class="fstat-no" title="function not covered" >(p</span>refix) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return _db.searchAsync('venue', 'searchVenue', {</span>
+    q: `name: "${prefix}"`,
+    include_docs: true,
+  }).then(<span class="fstat-no" title="function not covered" >re</span>sult =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (result.rows &amp;&amp; result.rows.length &gt; 0) {</span>
+      const delDocs = <span class="cstat-no" title="statement not covered" >{};</span>
+      const names = <span class="cstat-no" title="statement not covered" >result.rows.map(<span class="fstat-no" title="function not covered" >ro</span>w =&gt; <span class="cstat-no" title="statement not covered" >row.doc.name)</span>;</span>
+<span class="cstat-no" title="statement not covered" >      console.log('startwith: ', names);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      delDocs.docs = result.rows.map(<span class="fstat-no" title="function not covered" >ro</span>w =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        return {</span>
+          _id: row.doc._id,
+          _rev: row.doc._rev,
+          _deleted: true
+        };
+      });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      return _db.bulkAsync(delDocs, {}).then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        return names;</span>
+      });
+    }
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  });
+};
+&nbsp;
+module.exports = {
+  getVenue,
+  getVenues,
+  getAvailableVenueNames,
+  findVenue,
+  insertVenue,
+  deleteVenue,
+  deleteVenueStartsWith,
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jan 08 2018 16:41:40 GMT+0900 (KST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

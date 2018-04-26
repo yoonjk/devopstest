@@ -1,0 +1,49 @@
+{
+  "name": "handson",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Handson for DevOps session",
+  "keywords": [],
+  "author": "Byungsun Jun",
+  "license": "",
+  "main": "index.js",
+  "dependencies": {
+    "bluebird": "3.4.1",
+    "cfenv": "1.0.x",
+    "cloudant": "1.7.1",
+    "dotenv": "4.0.0",
+    "express": "4.14.0",
+    "i18next": "8.4.0",
+    "i18next-sprintf-postprocessor": "0.2.2",
+    "morgan": "1.8.1",
+    "nedb": "1.8.0",
+    "q": "1.4.1",
+    "swagger-express-mw": "0.7.0",
+    "swagger-tools": "0.10.1",
+    "winston": "2.3.1"
+  },
+  "devDependencies": {
+    "nyc": "^11.0.1",
+    "jshint": "^2.9.4",
+    "mocha": "^3.2.0",
+    "should": "^7.1.0",
+    "supertest": "^1.0.0",
+    "sinon": "^2.3.4",
+    "jscs": "^3.0.7"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "validate": "./node_modules/jscs/bin/jscs . && ./node_modules/jshint/bin/jshint",
+    "test": "nyc  --reporter=html --reporter=text mocha 'test/**/*.js' && npm run validate",
+    "jshint": "./node_modules/jshint/bin/jshint . "
+  },
+  "maintainers": [
+    {
+      "name": "Byungsun Jun",
+      "email": "bsjun@kr.ibm.com"
+    }
+  ],
+  "engines": {
+    "node": "6.10.0"
+  }
+}
